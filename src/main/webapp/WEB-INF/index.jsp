@@ -1,3 +1,5 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <!DOCTYPE html>
 <head>
 <title>Time API</title>
@@ -18,15 +20,25 @@
 			Hour</button>
 	</div>
 
+	<br>
+	<br>
 
-	<select>
-		<option value="volvo">Volvo</option>
-		<option value="saab">Saab</option>
-		<option value="mercedes">Mercedes</option>
-		<option value="audi">Audi</option>
-	</select>
+	<form:form action="processCity" modelAttribute="student">
 
-	<script type="text/javascript" src="/resources/js/app.js"></script>
+		<label> Select city and country </label>
+
+		<select>
+			<option value="chicago">America/Chicago</option>
+			<option value="kolkata">Asia/Kolkata</option>
+			<option value="adelaide">Australia/Adelaide</option>
+			<option value="zurich">Europe/Zurich</option>
+		</select>
+
+		<input type="submit"></input>
+
+		<script type="text/javascript" src="/resources/js/app.js"></script>
+
+	</form:form>
 
 
 </body>
