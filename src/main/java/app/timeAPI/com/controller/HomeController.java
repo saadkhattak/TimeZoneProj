@@ -1,12 +1,9 @@
 package app.timeAPI.com.controller;
 
-import java.text.SimpleDateFormat;
-
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,45 +14,34 @@ import com.jayway.jsonpath.JsonPath;
 @Controller
 public class HomeController {
 	
-	@GetMapping("/try")
-	public ModelAndView homePage() {
-		System.out.println("Hello");
-		getTimeZone();
+	@GetMapping("/")
+	public ModelAndView homePage(Model model) {
+		model.addAttribute("city", new City());
 		return new ModelAndView("index");
 	}
 	
-	private void getTimeZone()
+	private String getTimeZone(String city)
 	{
-	    final String uri = "http://api.timezonedb.com/v2.1/get-time-zone?key=2BXG0JBYXNS0&format=json&by=zone&zone=America/Chicago";
-	     
+	    String baseUri = "http://api.timezonedb.com/v2.1/get-time-zone?key=2BXG0JBYXNS0&format=json&by=zone&zone=";
+	    String completeURI = baseUri + city;
+	    
+	    //Call external API to fetch date and time details. 
 	    RestTemplate restTemplate = new RestTemplate();
-	    String result = restTemplate.getForObject(uri, String.class);
+	    String result = restTemplate.getForObject(completeURI, String.class);
 	     
 	    System.out.println(result);
 	    DocumentContext jsonContext = JsonPath.parse(result);
-	    String jsonpathCreatorNamePath = "$['timestamp']";
-	    String jsonpathCreatorNamePath1 = "$['formatted']";
-
-	    int jsonpathCreatorName = jsonContext.read(jsonpathCreatorNamePath);
-	    String jsonpathCreatorName1 = jsonContext.read(jsonpathCreatorNamePath1);
-
 	    
-	    System.out.println(jsonpathCreatorName);
-	    System.out.println(jsonpathCreatorName1);
-	    
+	    String key = "$['formatted']";
 
-
-	    
-	    
-		/*
-		 * DateTime date = DateTime.parse(jsonpathCreatorName1,
-		 * DateTimeFormat.forPattern("HH:mm:ss"));
-		 * 
-		 * DateTimeFormatter fmt = DateTimeFormat.forPattern("HH:mm:ss"); String dtStr =
-		 * fmt.print(date);
-		 */
-
+	    String formattedTime = jsonContext.read(key);
+	    return formattedTime;
+	}
 	
-	
+	@RequestMapping("processCity")
+	public ModelAndView Timetime(@ModelAttribute("city") City city, Model model) {
+		city.setCityTime(getTimeZone(city.getCityName()));
+		model.addAttribute("city", city);
+		return new ModelAndView("timeWithCity");
 	}
 }
