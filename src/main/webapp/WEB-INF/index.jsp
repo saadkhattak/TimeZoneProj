@@ -3,8 +3,6 @@
 <!DOCTYPE html>
 <head>
 	<title>Time API</title>
-	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 	
 <body>
@@ -13,9 +11,9 @@
 	<h2>Your current time is</h2>
 	<h3 id="showTime"></h3>
 
-	<div class="btn-group">
-		<button type="button" id = "12Hr" class="btn btn-primary btn-lg">12 Hour</button>
-		<button type="button" id = "24Hr" class="btn btn-secondary btn-lg">24 Hour</button>
+	<div>
+		<button id = "12Hr">12 Hour</button>
+		<button id = "24Hr">24 Hour</button>
 	</div>
 
 	<br>
@@ -23,21 +21,21 @@
 
 	<form:form action="processCity" modelAttribute="city">
 
-		<label> Select city and country </label>
+		<label> Select city </label>
 
 		<form:select path="cityName">
 			<option value="America/Chicago">Chicago</option>
 			<option value="Asia/Kolkata">Kolkata</option>
 			<option value="Australia/Adelaide">Adelaide</option>
 			<option value="Europe/Zurich">Zurich</option>
+			<option value="America/Vancouver">Vancouver</option>
 		</form:select>
-
 		<input type="submit"></input>
-
-		<script type="text/javascript" src = "/resources/js/app.js"></script>
-		<script type="text/javascript" src = "/resources/js/convertTime.js"></script>
-
+		
 	</form:form>
+
+	<script type="text/javascript" src = "/resources/js/app.js"></script>
+	<script type="text/javascript" src = "/resources/js/convertTime.js"></script>
 
 </body>
 </html>
