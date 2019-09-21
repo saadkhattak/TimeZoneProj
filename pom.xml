@@ -12,6 +12,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>TimeAPI</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>TimeAPI</name>
 	<description>API to play with time and timezones</description>
 
