@@ -9,5 +9,4 @@ public class TimeApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TimeApiApplication.class, args);
 	}
-
 }
